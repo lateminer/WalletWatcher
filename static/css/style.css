@@ -1,0 +1,25 @@
+h1 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.25em;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+h2 img {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.35em;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.row {
+    margin: 1.5em 0;
+}

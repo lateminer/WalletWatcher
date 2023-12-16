@@ -49,7 +49,15 @@ fn load_coins() -> Vec<Coin> {
     match coins {
         Ok(mut coins) => {
             for coin in coins.coins.iter_mut() {
-                coin.addresses = coin.addresses.iter().map(|addr| Address { address: addr.address.clone(), balance: None, last_block_timestamp: None }).collect();
+                coin.addresses = coin
+                    .addresses
+                    .iter()
+                    .map(|addr| Address {
+                        address: addr.address.clone(),
+                        balance: None,
+                        last_block_timestamp: None,
+                    })
+                    .collect();
             }
             coins.coins
         }
@@ -117,29 +125,8 @@ async fn respond() -> HttpResponse {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Crypto Wallet Watcher</title>
-            <style>
-                h1 {{
-                    border-bottom: 1px solid #ccc;
-                    padding-bottom: 0.25em;
-                }}
-                h2 {{
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 0.5em;
-                }}
-                h2 img {{
-                    width: 32px;
-                    height: 32px;
-                    margin-right: 0.35em;
-                }}
-                .container {{
-                    width: 800px;
-                    margin: 0 auto;
-                }}
-                .row {{
-                    margin: 1.5em 0;
-                }}
-            </style>
+            <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+            <link rel="stylesheet" href="/static/css/style.css">
         </head>
         <body>
             <div class="container">
@@ -292,8 +279,12 @@ async fn main() -> std::io::Result<()> {
     let initial_coins = load_coins();
     *COINS.lock().unwrap() = initial_coins;
 
-    HttpServer::new(move || App::new().service(web::resource("/").to(respond)))
-        .bind("0.0.0.0:8080")?
-        .run()
-        .await
+    HttpServer::new(move || {
+        App::new()
+            .service(web::resource("/").to(respond))
+            .service(actix_files::Files::new("/static", "./static"))
+    })
+    .bind("0.0.0.0:8080")?
+    .run()
+    .await
 }
