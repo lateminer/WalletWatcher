@@ -2,10 +2,10 @@
 name = "Blackcoin"
 ticker = "BLK"
 api = "Chainz"
-address = "B7hAb7hDY8YkGrcQpYV1ig7nygVznBaBta"
+addresses = ["B7hAb7hDY8YkGrcQpYV1ig7nygVznBaBta", "BF58Wm7hXSPXxfXm6HwrkWAr45qrZhNHJu"]
 
 [[coins]]
 name = "Blacknet"
 ticker = "BLN"
 api = "Blnscan"
-address = "blacknet17tuwsx4twcl6ysjaj5pag03n59e56y37yagxht0rhmldl07yyxps6fhfjn"
+addresses = ["blacknet17tuwsx4twcl6ysjaj5pag03n59e56y37yagxht0rhmldl07yyxps6fhfjn"]
