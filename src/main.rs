@@ -118,24 +118,7 @@ async fn update_coins_list() -> Result<(), Box<dyn std::error::Error>> {
 async fn respond() -> HttpResponse {
     let _ = update_coins_list().await;
     let html_content = format!(
-        r#"
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Crypto Wallet Watcher</title>
-            <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-            <link rel="stylesheet" href="/static/css/style.css">
-        </head>
-        <body>
-            <div class="container">
-                <h1>Wallet Status</h1>
-                {coins}
-            </div>
-        </body>
-        </html>
-    "#,
+        include_str!("templates/index.html"),
         coins = format_coins(&COINS.lock().unwrap())
     );
 
@@ -205,14 +188,7 @@ fn format_addresses(coin: &Coin, addresses: &[Address]) -> String {
         .iter()
         .map(|address| {
             format!(
-                r#"
-                <div class="row">
-                    Address: <a href="{}">{}</a><br>
-                    Balance: {}<br>
-                    Last Active On: {}<br>
-                    Time Since Last Activity: {}
-                </div>
-            "#,
+                include_str!("templates/block_address.html"),
                 if coin.api == ApiType::Chainz {
                     format!(
                         "https://chainz.cryptoid.info/{}/address.dws?{}.htm",
@@ -249,12 +225,7 @@ fn format_coins(coins: &[Coin]) -> String {
         .iter()
         .map(|coin| {
             format!(
-                r#"
-                <div class="row">
-                    <h2><img src="{}" alt="{}">{}</h2>
-                    {}
-                </div>
-            "#,
+                include_str!("templates/block_coin.html"),
                 if coin.api == ApiType::Chainz {
                     format!(
                         "https://chainz.cryptoid.info/logo/{}.png",
