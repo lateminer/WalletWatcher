@@ -250,7 +250,7 @@ async fn main() -> std::io::Result<()> {
     *COINS.lock().unwrap() = initial_coins;
 
     HttpServer::new(move || App::new().service(web::resource("/").to(respond)))
-        .bind("127.0.0.1:8080")?
+        .bind("0.0.0.0:8080")?
         .run()
         .await
 }
