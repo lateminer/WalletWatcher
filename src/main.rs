@@ -237,7 +237,7 @@ fn format_coins(coins: &[Coin]) -> String {
                 String::new()
             },
             coin.address,
-            coin.balance.map_or("?".to_string(), |balance| balance.to_string() + &coin.ticker),
+            coin.balance.map_or("?".to_string(), |balance| balance.to_string() + " " + &coin.ticker),
             coin.last_block_timestamp.map_or("?".to_string(), |timestamp| format_timestamp(timestamp)),
             if let Some(last_timestamp) = coin.last_block_timestamp { get_time_since_last_activity(last_timestamp) } else { "?".to_string() },
         )
