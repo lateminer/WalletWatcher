@@ -2,6 +2,9 @@ WalletWatcher
 ===========================
 
 A simple app for monitoring the last activity of specified crypto wallets. Initially designed for monitoring staking wallets.
+
+Operates as a web server, listening on port 8080.
+
 Uses block explorer API to get data. At moment [Chainz](https://chainz.cryptoid.info/) and [BLNScan](https://blnexplorer.io/) are supported.
 
 Contributions are welcome! To report issues or suggest enhancements, please create a new issue. If you want to contribute code, feel free to submit a pull request.
@@ -16,3 +19,4 @@ Usage
 -------
 
 * Run the app with `cargo run`
+* Open `127.0.0.1:8080` in your browser
