@@ -183,6 +183,15 @@ fn format_timestamp(timestamp: u64) -> String {
     }
 }
 
+fn get_total_balance(coin: &Coin, addresses: &[Address]) -> String {
+    if addresses.iter().any(|address| address.balance.is_none()) {
+        "?".to_string()
+    } else {
+        let total_balance: f32 = addresses.iter().filter_map(|address| address.balance).sum();
+        format!("{} {}", total_balance, coin.ticker)
+    }
+}
+
 fn format_addresses(coin: &Coin, addresses: &[Address]) -> String {
     addresses
         .iter()
@@ -239,6 +248,7 @@ fn format_coins(coins: &[Coin]) -> String {
                 },
                 coin.name,
                 coin.name,
+                get_total_balance(coin, &coin.addresses),
                 format_addresses(coin, &coin.addresses),
             )
         })
